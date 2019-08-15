@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gmd.dao.StateMapper" >
+  <resultMap id="BaseResultMap" type="com.gmd.entity.State" >
+    <id column="state_id" property="stateId" jdbcType="INTEGER" />
+    <result column="state_name" property="stateName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from state
+    where state_id = #{stateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gmd.entity.State" >
+    insert into state (state_name)
+    values (#{stateName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.gmd.entity.State" >
+    update state
+    set state_name = #{stateName,jdbcType=VARCHAR}
+    where state_id = #{stateId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select state_id, state_name
+    from state
+    where state_id = #{stateId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select state_id, state_name
+    from state
+  </select>
+</mapper>

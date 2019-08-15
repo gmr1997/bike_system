@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gmd.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gmd.entity.UserInfo" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="INTEGER" />
+    <result column="user_tel" property="userTel" jdbcType="CHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_pic" property="userPic" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gmd.entity.UserInfo" >
+    insert into user_info (user_name, user_password,
+      user_sex, user_tel, user_email, 
+      user_pic, reg_time)
+    values (#{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
+      #{userSex,jdbcType=INTEGER}, #{userTel,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userPic,jdbcType=VARCHAR}, #{regTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.gmd.entity.UserInfo" >
+    update user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_tel = #{userTel,jdbcType=CHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_pic = #{userPic,jdbcType=VARCHAR},
+      reg_time = #{regTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id, user_name, user_password, user_sex, user_tel, user_email, user_pic, 
+    reg_time
+    from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select user_id, user_name, user_password, user_sex, user_tel, user_email, user_pic, 
+    reg_time
+    from user_info
+  </select>
+  <select id="userLogin" resultMap="BaseResultMap">
+     select user_id, user_name, user_password, user_sex, user_tel, user_email, user_pic,
+    reg_time
+    from user_info where user_name=#{userName} and  user_password=#{userPassword}
+  </select>
+  <update id="updatePhoto" parameterType="com.gmd.entity.UserInfo" >
+    update user_info
+    set user_pic = #{userPic,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gmd.dao.BikeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gmd.entity.BikeInfo" >
+    <id column="thebike_id" property="thebikeId" jdbcType="INTEGER" />
+    <result column="thebike_code" property="thebikeCode" jdbcType="VARCHAR" />
+    <result column="thebike_address" property="thebikeAddress" jdbcType="VARCHAR" />
+    <result column="thecomponet_id" property="thecomponetId" jdbcType="INTEGER" />
+    <result column="thebreakage" property="thebreakage" jdbcType="VARCHAR" />
+    <result column="thereport_time" property="thereportTime" jdbcType="TIMESTAMP" />
+    <result column="thestate_id" property="thestateId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bike_info
+    where thebike_id = #{thebikeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gmd.entity.BikeInfo" >
+    insert into bike_info (thebike_code, thebike_address,
+      thecomponet_id, thebreakage, thereport_time, 
+      thestate_id)
+    values (#{thebikeCode,jdbcType=VARCHAR}, #{thebikeAddress,jdbcType=VARCHAR},
+      #{thecomponetId,jdbcType=INTEGER}, #{thebreakage,jdbcType=VARCHAR}, #{thereportTime,jdbcType=TIMESTAMP}, 
+      #{thestateId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.gmd.entity.BikeInfo" >
+    update bike_info
+    set thebike_code = #{thebikeCode,jdbcType=VARCHAR},
+      thebike_address = #{thebikeAddress,jdbcType=VARCHAR},
+      thecomponet_id = #{thecomponetId,jdbcType=INTEGER},
+      thebreakage = #{thebreakage,jdbcType=VARCHAR},
+      thereport_time = #{thereportTime,jdbcType=TIMESTAMP},
+      thestate_id = #{thestateId,jdbcType=INTEGER}
+    where thebike_id = #{thebikeId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select thebike_id, thebike_code, thebike_address, thecomponet_id, thebreakage, thereport_time, 
+    thestate_id
+    from bike_info
+    where thebike_id = #{thebikeId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select thebike_id, thebike_code, thebike_address, thecomponet_id, thebreakage, thereport_time, 
+    thestate_id
+    from bike_info
+  </select>
+</mapper>

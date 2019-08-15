@@ -1,0 +1,29 @@
+server:
+  port: 8082
+
+#设置文件上传的路径
+web:
+  user-path: D:/images/user-iamges1/
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_bikesharing
+    username: root
+    password: root
+  #	设置访问静态文件时URL的格式
+  mvc:
+    static-path-pattern: /img/**
+  #	设置了spring.mvc.static-path-pattern后，springboot中原来的静态文件目录将失败，需要重新设置springboot的静态目录
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/public/,classpath:/resources/,classpath:/static/,file:${web.user-path}
+mybatis:
+  mapper-locations:
+  - classpath:mapper/*.xml                    #设置Mybatis的Mapper.xml文件位置
+  type-aliases-package: com.gmd.entity      #设置MyBatis实体类位置
+  configuration:
+    map-underscore-to-camel-case: true    #开启MyBatis驼峰命名
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #设置MyBatis显示SQL语句
+
+
+
